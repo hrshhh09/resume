@@ -9,6 +9,7 @@ export const profile = {
   phone: '+91 93723 11512',
   github: 'https://github.com/',
   linkedin: 'https://www.linkedin.com/',
+  website: 'https://www.aiharsh.com',
   resumePath: '/api/resume',
 };
 
@@ -22,7 +23,7 @@ export const experiences = [
   {
     role: 'Senior AI Engineer',
     company: 'Fulcrum Digital',
-    period: 'Jun 2025 - Present',
+    period: 'Jun 2025 - May 2026',
     bullets: [
       'Architected production ML serving infrastructure on AKS and Kubernetes, processing 50K+ inference requests daily with sub-200ms latency.',
       'Built full-stack GenAI apps with React, FastAPI, LangGraph agentic workflows, and RAG pipelines, reducing manual document processing by 70%.',
@@ -118,6 +119,13 @@ export const projects = [
     demo: '#contact',
   },
 ];
+
+export const education = {
+  degree: 'BTech, Electronics & Telecommunications',
+  school: 'Vishwakarma Institute of Information Technology (SPPU, Pune)',
+  period: '2020 - 2024',
+  cgpa: '8.69',
+};
 
 export const blogPosts = [
   {

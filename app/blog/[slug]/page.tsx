@@ -1,6 +1,7 @@
 import Link from 'next/link';
 import { ArrowLeft } from 'lucide-react';
 import { notFound } from 'next/navigation';
+import { Footer } from '@/components/Footer';
 import { Navbar } from '@/components/Navbar';
 import { blogPosts, getBlogPost, profile } from '@/lib/data';
 
@@ -28,29 +29,26 @@ export default async function BlogPostPage({ params }: BlogPageProps) {
   if (!post) notFound();
 
   return (
-    <main className="min-h-screen overflow-hidden pb-16">
+    <>
       <Navbar />
-      <div aria-hidden="true" className="pointer-events-none fixed inset-0 -z-10 overflow-hidden">
-        <div className="absolute left-[-8rem] top-20 h-80 w-80 rounded-full bg-blue-700/25 blur-3xl" />
-        <div className="absolute right-[-10rem] top-32 h-96 w-96 rounded-full bg-cyan-500/15 blur-3xl" />
-      </div>
-      <article className="section-shell pt-36">
-        <Link href="/#blog" className="glass mb-8 inline-flex items-center gap-2 rounded-xl px-4 py-2 text-sm font-medium text-sky-100 transition hover:bg-white/[0.06]">
-          <ArrowLeft className="h-4 w-4" />
-          Back to journal
-        </Link>
-        <div className="glass-strong mx-auto max-w-3xl rounded-3xl p-6 sm:p-10">
-          <p className="text-sm text-slate-400">{post.date} · {post.readTime}</p>
-          <h1 className="mt-4 text-3xl font-semibold tracking-tight text-white sm:text-5xl">{post.title}</h1>
-          <p className="mt-5 text-lg leading-8 text-slate-300">{post.excerpt}</p>
-          <div className="mt-6 flex flex-wrap gap-2">
-            {post.tags.map((tag) => <span key={tag} className="rounded-full bg-sky-400/10 px-3 py-1 text-xs text-sky-200">{tag}</span>)}
+      <main className="section-shell pt-32">
+        <article className="mx-auto max-w-2xl">
+          <Link href="/blog" className="inline-flex items-center gap-2 font-mono text-xs text-stone-500 transition hover:text-lime-400">
+            <ArrowLeft className="h-3.5 w-3.5" />
+            All posts
+          </Link>
+          <p className="mt-10 font-mono text-xs text-stone-500">{post.date} · {post.readTime}</p>
+          <h1 className="mt-3 text-4xl font-semibold leading-tight tracking-tight text-white sm:text-5xl">{post.title}</h1>
+          <p className="mt-5 text-lg leading-8 text-stone-400">{post.excerpt}</p>
+          <div className="mt-6 flex flex-wrap gap-1.5">
+            {post.tags.map((tag) => <span key={tag} className="chip">{tag}</span>)}
           </div>
-          <div className="mt-10 grid gap-6 text-base leading-8 text-slate-200">
+          <div className="mt-10 space-y-6 border-t border-white/10 pt-10 text-[17px] leading-8 text-stone-300">
             {post.body.map((paragraph) => <p key={paragraph}>{paragraph}</p>)}
           </div>
-        </div>
-      </article>
-    </main>
+        </article>
+      </main>
+      <Footer />
+    </>
   );
 }

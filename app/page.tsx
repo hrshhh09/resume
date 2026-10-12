@@ -1,181 +1,162 @@
 import Link from 'next/link';
-import { ArrowRight, Download, ExternalLink, Github, Linkedin, Mail, MapPin, Phone } from 'lucide-react';
+import { ArrowRight, ArrowUpRight, Download, Github, Linkedin, Mail, MapPin } from 'lucide-react';
 import { ContactForm } from '@/components/ContactForm';
-import { IntroVideo } from '@/components/IntroVideo';
+import { Footer } from '@/components/Footer';
 import { Navbar } from '@/components/Navbar';
 import { SectionHeading } from '@/components/SectionHeading';
-import { blogPosts, experiences, metrics, profile, projects, services, skillGroups } from '@/lib/data';
+import { blogPosts, education, experiences, metrics, profile, projects, skillGroups } from '@/lib/data';
 
 export default function Home() {
   return (
-    <main className="relative min-h-screen overflow-hidden pb-16">
-      <AmbientBackground />
+    <>
       <Navbar />
-
-      <section id="about" className="section-shell grid min-h-screen items-center gap-10 pt-32 lg:grid-cols-[1fr_0.9fr] lg:pt-20">
-        <div className="animate-fadeUp">
-          <div className="glass mb-6 inline-flex items-center gap-2 rounded-full px-3 py-1.5 text-sm text-sky-100">
-            <span className="h-2 w-2 rounded-full bg-emerald-400" />
+      <main>
+        {/* Hero */}
+        <section id="about" className="section-shell pb-20 pt-36 sm:pt-44">
+          <p className="inline-flex items-center gap-2 font-mono text-xs text-stone-400">
+            <span className="relative flex h-2 w-2">
+              <span className="absolute inline-flex h-full w-full animate-ping rounded-full bg-lime-400 opacity-60" />
+              <span className="relative inline-flex h-2 w-2 rounded-full bg-lime-400" />
+            </span>
             Open to Senior SWE / AI Engineer roles
-          </div>
-          <h1 className="max-w-4xl text-4xl font-semibold tracking-tight text-white sm:text-6xl lg:text-7xl">
-            Building scalable systems where software meets <span className="gradient-text">AI</span>.
-          </h1>
-          <p className="mt-6 max-w-2xl text-lg leading-8 text-slate-300">
-            I&apos;m {profile.name}, a Senior Software Engineer with 2+ years shipping distributed systems, microservices, and production ML platforms across AWS, Azure, and GCP. Full-stack by day, ML infra by night.
           </p>
-          <div className="mt-6 flex flex-wrap gap-3 text-sm text-slate-300">
-            <span className="inline-flex items-center gap-2"><MapPin className="h-4 w-4 text-sky-300" />{profile.location}</span>
-            <a className="inline-flex items-center gap-2 transition hover:text-white" href={`mailto:${profile.email}`}><Mail className="h-4 w-4 text-sky-300" />{profile.email}</a>
-            <a className="inline-flex items-center gap-2 transition hover:text-white" href={`tel:${profile.phone.replace(/\s/g, '')}`}><Phone className="h-4 w-4 text-sky-300" />{profile.phone}</a>
+          <h1 className="mt-6 text-5xl font-semibold tracking-tight text-white sm:text-7xl">{profile.name}</h1>
+          <p className="mt-3 font-mono text-lg text-lime-400 sm:text-xl">{profile.title} · AI Platforms</p>
+          <p className="mt-8 max-w-2xl text-lg leading-8 text-stone-400">
+            I build scalable distributed systems, microservices, and production ML platforms across AWS, Azure, and GCP —
+            from <span className="text-stone-200">model-serving pipelines on Kubernetes</span> to{' '}
+            <span className="text-stone-200">agentic RAG systems</span> and full-stack GenAI apps.
+          </p>
+
+          <div className="mt-10 flex flex-wrap gap-3">
+            <a href={profile.resumePath} download className="btn-primary"><Download className="h-4 w-4" />Download Resume</a>
+            <Link href="/#contact" className="btn-ghost"><Mail className="h-4 w-4" />Get in touch</Link>
+            <a href={profile.github} aria-label="GitHub" className="btn-ghost !px-3"><Github className="h-4 w-4" /></a>
+            <a href={profile.linkedin} aria-label="LinkedIn" className="btn-ghost !px-3"><Linkedin className="h-4 w-4" /></a>
           </div>
-          <div className="mt-8 flex flex-wrap gap-3">
-            <a href={profile.resumePath} download className="inline-flex items-center gap-2 rounded-xl bg-gradient-to-tr from-blue-600 to-sky-400 px-5 py-3 text-sm font-semibold text-white shadow-lg shadow-blue-500/30 transition hover:scale-[1.02]"><Download className="h-4 w-4" />Download Resume</a>
-            <a href={profile.github} className="glass inline-flex items-center gap-2 rounded-xl px-5 py-3 text-sm font-semibold text-white transition hover:border-white/20 hover:bg-white/[0.06]"><Github className="h-4 w-4" />GitHub</a>
-            <a href={profile.linkedin} className="glass inline-flex items-center gap-2 rounded-xl px-5 py-3 text-sm font-semibold text-white transition hover:border-white/20 hover:bg-white/[0.06]"><Linkedin className="h-4 w-4" />LinkedIn</a>
+
+          <dl className="mt-16 grid grid-cols-2 gap-px overflow-hidden rounded-xl border border-white/10 bg-white/10 sm:grid-cols-4">
+            {[...metrics, { value: '2+ yrs', label: 'Shipping production systems' }].map((m) => (
+              <div key={m.label} className="bg-[#0a0a0b] p-5">
+                <dt className="font-mono text-2xl font-semibold text-white">{m.value}</dt>
+                <dd className="mt-1 text-xs text-stone-500">{m.label}</dd>
+              </div>
+            ))}
+          </dl>
+        </section>
+
+        {/* Experience */}
+        <section id="experience" className="section-shell py-20">
+          <SectionHeading index="01 — Experience" title="Where I've worked" />
+          <ol className="relative border-l border-white/10">
+            {experiences.map((item) => (
+              <li key={`${item.company}-${item.role}`} className="relative pb-12 pl-8 last:pb-0">
+                <span className="absolute -left-[5px] top-2 h-2.5 w-2.5 rounded-full border-2 border-lime-400 bg-[#0a0a0b]" />
+                <div className="flex flex-col gap-1 sm:flex-row sm:items-baseline sm:justify-between">
+                  <h3 className="text-lg font-semibold text-white">
+                    {item.role} <span className="text-stone-500">@</span> <span className="text-lime-400">{item.company}</span>
+                  </h3>
+                  <span className="font-mono text-xs text-stone-500">{item.period}</span>
+                </div>
+                <ul className="mt-4 space-y-2.5 text-[15px] leading-7 text-stone-400">
+                  {item.bullets.map((b) => (
+                    <li key={b} className="flex gap-3"><span className="mt-[11px] h-px w-3 shrink-0 bg-stone-600" />{b}</li>
+                  ))}
+                </ul>
+              </li>
+            ))}
+          </ol>
+
+          <div className="card mt-14 flex flex-col gap-2 p-6 sm:flex-row sm:items-center sm:justify-between">
+            <div>
+              <p className="label">Education</p>
+              <p className="mt-2 font-semibold text-white">{education.degree}</p>
+              <p className="text-sm text-stone-400">{education.school}</p>
+            </div>
+            <div className="font-mono text-sm text-stone-400 sm:text-right">
+              <p>{education.period}</p>
+              <p className="text-lime-400">CGPA {education.cgpa}</p>
+            </div>
           </div>
-          <div className="mt-10 grid max-w-xl grid-cols-3 gap-3">
-            {metrics.map((metric) => (
-              <div key={metric.label} className="glass rounded-2xl p-4">
-                <p className="text-2xl font-semibold text-white">{metric.value}</p>
-                <p className="mt-1 text-xs leading-5 text-slate-400">{metric.label}</p>
+        </section>
+
+        {/* Skills */}
+        <section id="skills" className="section-shell py-20">
+          <SectionHeading index="02 — Stack" title="Tools I reach for" />
+          <div className="grid gap-px overflow-hidden rounded-xl border border-white/10 bg-white/10 sm:grid-cols-2">
+            {skillGroups.map((g) => (
+              <div key={g.label} className="bg-[#0a0a0b] p-5">
+                <p className="font-mono text-xs text-stone-500">{g.label}</p>
+                <div className="mt-3 flex flex-wrap gap-1.5">
+                  {g.skills.map((s) => <span key={s} className="rounded-md bg-white/[0.05] px-2.5 py-1 text-sm text-stone-200">{s}</span>)}
+                </div>
               </div>
             ))}
           </div>
-        </div>
-        <div className="flex justify-center lg:justify-end">
-          <IntroVideo />
-        </div>
-      </section>
+        </section>
 
-      <section id="experience" className="section-shell py-20">
-        <SectionHeading eyebrow="Where I have worked" title="Experience" />
-        <div className="grid gap-5 lg:grid-cols-[1.2fr_0.8fr]">
-          <div className="grid gap-4">
-            {experiences.map((item) => (
-              <article key={`${item.company}-${item.role}`} className="glass rounded-2xl p-5 transition hover:border-white/20 hover:bg-white/[0.05] sm:p-6">
-                <div className="flex flex-col gap-2 sm:flex-row sm:items-start sm:justify-between">
-                  <div>
-                    <h3 className="text-xl font-semibold text-white">{item.role}</h3>
-                    <p className="text-sky-200">{item.company}</p>
+        {/* Projects */}
+        <section id="projects" className="section-shell py-20">
+          <SectionHeading index="03 — Projects" title="Selected work" description="Systems I've architected — ML infrastructure, RAG pipelines, and event-driven services." />
+          <div className="grid gap-4 md:grid-cols-2">
+            {projects.map((p) => {
+              const Icon = p.icon;
+              return (
+                <article key={p.title} className="card group flex flex-col p-6">
+                  <div className="flex items-center justify-between">
+                    <Icon className="h-5 w-5 text-lime-400" />
+                    <a href={p.source} aria-label={`${p.title} source`} className="text-stone-500 transition hover:text-white"><ArrowUpRight className="h-5 w-5" /></a>
                   </div>
-                  <span className="rounded-full border border-white/10 bg-white/[0.04] px-3 py-1 text-sm text-slate-300">{item.period}</span>
-                </div>
-                <ul className="mt-5 grid gap-3 text-sm leading-6 text-slate-300">
-                  {item.bullets.map((bullet) => (
-                    <li key={bullet} className="flex gap-3"><span className="mt-2 h-1.5 w-1.5 shrink-0 rounded-full bg-sky-300" />{bullet}</li>
-                  ))}
-                </ul>
-              </article>
-            ))}
+                  <h3 className="mt-5 text-lg font-semibold text-white">{p.title}</h3>
+                  <p className="mt-2 flex-1 text-sm leading-6 text-stone-400">{p.description}</p>
+                  <div className="mt-5 flex flex-wrap gap-1.5">
+                    {p.tech.map((t) => <span key={t} className="chip">{t}</span>)}
+                  </div>
+                </article>
+              );
+            })}
           </div>
-          <div className="glass-strong rounded-2xl p-5 sm:p-6">
-            <h3 className="text-xl font-semibold text-white">Technical Stack</h3>
-            <div className="mt-5 grid gap-5">
-              {skillGroups.map((group) => (
-                <div key={group.label}>
-                  <p className="mb-2 text-sm font-medium text-sky-200">{group.label}</p>
-                  <div className="flex flex-wrap gap-2">
-                    {group.skills.map((skill) => (
-                      <span key={skill} className="rounded-full border border-white/10 bg-white/[0.04] px-3 py-1 text-xs text-slate-300">{skill}</span>
-                    ))}
-                  </div>
-                </div>
-              ))}
-            </div>
+        </section>
+
+        {/* Blog */}
+        <section id="blog" className="section-shell py-20">
+          <div className="flex items-end justify-between gap-4">
+            <SectionHeading index="04 — Writing" title="Latest from the blog" />
+            <Link href="/blog" className="mb-10 hidden items-center gap-1.5 text-sm text-stone-400 transition hover:text-lime-400 sm:inline-flex">
+              All posts <ArrowRight className="h-4 w-4" />
+            </Link>
           </div>
-        </div>
-      </section>
-
-      <section id="projects" className="section-shell py-20">
-        <SectionHeading eyebrow="Selected work" title="Featured Work" description="Systems and platforms I have architected, from ML infrastructure and RAG pipelines to event-driven microservices." />
-        <div className="grid gap-5 md:grid-cols-2 xl:grid-cols-3">
-          {projects.map((project) => {
-            const Icon = project.icon;
-            return (
-              <article key={project.title} className="glass group flex min-h-[320px] flex-col rounded-2xl p-5 transition-all hover:-translate-y-1 hover:border-white/20 hover:bg-white/[0.06] sm:p-6">
-                <div className="mb-5 flex items-start justify-between gap-4">
-                  <div className="flex h-11 w-11 items-center justify-center rounded-xl bg-sky-400/10 text-sky-200 ring-1 ring-sky-300/20"><Icon className="h-5 w-5" /></div>
-                  <div className="flex gap-2">
-                    <a href={project.source} aria-label={`${project.title} source`} className="rounded-lg p-2 text-slate-300 transition hover:bg-white/10 hover:text-white"><Github className="h-4 w-4" /></a>
-                    <a href={project.demo} aria-label={`${project.title} demo`} className="rounded-lg p-2 text-slate-300 transition hover:bg-white/10 hover:text-white"><ExternalLink className="h-4 w-4" /></a>
-                  </div>
-                </div>
-                <h3 className="text-xl font-semibold text-white">{project.title}</h3>
-                <p className="mt-3 flex-1 text-sm leading-6 text-slate-300">{project.description}</p>
-                <div className="mt-5 flex flex-wrap gap-2">
-                  {project.tech.map((tech) => <span key={tech} className="rounded-full bg-white/[0.06] px-2.5 py-1 text-xs text-sky-100">{tech}</span>)}
-                </div>
-              </article>
-            );
-          })}
-        </div>
-      </section>
-
-      <section id="blog" className="section-shell py-20">
-        <SectionHeading eyebrow="Writing" title="From the Journal" description="Notes on shipping ML platforms, distributed systems, and the craft of engineering at scale." />
-        <div className="glass rounded-3xl p-4 sm:p-6">
-          <div className="grid gap-4 lg:grid-cols-3">
+          <div className="divide-y divide-white/10 border-y border-white/10">
             {blogPosts.map((post) => (
-              <article key={post.slug} className="rounded-2xl border border-white/10 bg-zinc-900/80 p-5 transition hover:border-sky-300/40">
-                <p className="text-sm text-slate-400">{post.date} · {post.readTime}</p>
-                <h3 className="mt-4 text-xl font-semibold leading-7 text-white">{post.title}</h3>
-                <p className="mt-3 text-sm leading-6 text-slate-300">{post.excerpt}</p>
-                <div className="mt-5 flex flex-wrap gap-2">
-                  {post.tags.map((tag) => <span key={tag} className="rounded-full bg-sky-400/10 px-2.5 py-1 text-xs text-sky-200">{tag}</span>)}
+              <Link key={post.slug} href={`/blog/${post.slug}`} className="group flex flex-col gap-2 py-6 sm:flex-row sm:items-baseline sm:gap-8">
+                <span className="w-32 shrink-0 font-mono text-xs text-stone-500">{post.date}</span>
+                <div className="flex-1">
+                  <h3 className="text-lg font-medium text-white transition group-hover:text-lime-400">{post.title}</h3>
+                  <p className="mt-1 text-sm text-stone-500">{post.excerpt}</p>
                 </div>
-                <Link href={`/blog/${post.slug}`} className="mt-6 inline-flex items-center gap-2 text-sm font-semibold text-sky-200 transition hover:text-white">Read <ArrowRight className="h-4 w-4" /></Link>
-              </article>
+                <ArrowUpRight className="hidden h-5 w-5 shrink-0 text-stone-600 transition group-hover:text-lime-400 sm:block" />
+              </Link>
             ))}
           </div>
-        </div>
-      </section>
+          <Link href="/blog" className="btn-ghost mt-8 sm:hidden">All posts <ArrowRight className="h-4 w-4" /></Link>
+        </section>
 
-      <section id="contact" className="section-shell py-20">
-        <div className="grid gap-8 lg:grid-cols-[0.9fr_1.1fr]">
-          <div>
-            <SectionHeading eyebrow="PDF - Updated 2025" title="Grab the full CV." description="Complete work history, technical skills matrix, education, and projects, designed to be scanned quickly." />
-            <div className="flex flex-wrap gap-3">
-              <a href={profile.resumePath} download className="inline-flex items-center gap-2 rounded-xl bg-gradient-to-tr from-blue-600 to-sky-400 px-5 py-3 text-sm font-semibold text-white shadow-lg shadow-blue-500/25 transition hover:scale-[1.02]"><Download className="h-4 w-4" />Download Full CV (PDF)</a>
-              <a href={`mailto:${profile.email}`} className="glass inline-flex items-center gap-2 rounded-xl px-5 py-3 text-sm font-semibold text-white transition hover:bg-white/[0.06]"><Mail className="h-4 w-4" />Get in touch</a>
+        {/* Contact */}
+        <section id="contact" className="section-shell py-20">
+          <div className="grid gap-10 lg:grid-cols-2">
+            <div>
+              <SectionHeading index="05 — Contact" title="Let's build something." description="Hiring, collaborating, or just want to talk ML infra? My inbox is open." />
+              <div className="space-y-3 text-sm">
+                <a href={`mailto:${profile.email}`} className="flex items-center gap-3 text-stone-300 hover:text-lime-400"><Mail className="h-4 w-4 text-stone-500" />{profile.email}</a>
+                <p className="flex items-center gap-3 text-stone-300"><MapPin className="h-4 w-4 text-stone-500" />{profile.location}</p>
+              </div>
+              <a href={profile.resumePath} download className="btn-primary mt-8"><Download className="h-4 w-4" />Download full CV (PDF)</a>
             </div>
-            <div className="mt-8 grid gap-3 sm:grid-cols-3">
-              {services.map((service) => {
-                const Icon = service.icon;
-                return <div key={service.label} className="glass rounded-2xl p-4"><Icon className="mb-3 h-5 w-5 text-sky-200" /><p className="text-sm text-slate-200">{service.label}</p></div>;
-              })}
-            </div>
+            <ContactForm />
           </div>
-          <ContactForm />
-        </div>
-      </section>
-
-      <footer className="section-shell border-t border-white/10 pt-8 text-sm text-slate-400">
-        <div className="flex flex-col gap-4 sm:flex-row sm:items-center sm:justify-between">
-          <div>
-            <p className="font-semibold text-white">{profile.name}</p>
-            <p>{profile.title}</p>
-          </div>
-          <div className="flex flex-wrap gap-4">
-            <a href={`mailto:${profile.email}`} className="hover:text-white">{profile.email}</a>
-            <span>{profile.location}</span>
-          </div>
-        </div>
-        <div className="mt-6 flex items-center justify-between pb-2">
-          <p>© 2026 {profile.name}. Built with Next.js & Tailwind.</p>
-          <span className="flex h-8 w-8 items-center justify-center rounded-lg bg-gradient-to-tr from-blue-600 to-sky-400 text-xs font-bold text-white">{profile.initials}</span>
-        </div>
-      </footer>
-    </main>
-  );
-}
-
-function AmbientBackground() {
-  return (
-    <div aria-hidden="true" className="pointer-events-none fixed inset-0 -z-10 overflow-hidden">
-      <div className="absolute left-[-8rem] top-20 h-80 w-80 animate-floatSlow rounded-full bg-blue-700/30 blur-3xl" />
-      <div className="absolute right-[-10rem] top-32 h-96 w-96 animate-floatReverse rounded-full bg-cyan-500/18 blur-3xl" />
-      <div className="absolute bottom-0 left-1/3 h-80 w-80 animate-floatSlow rounded-full bg-indigo-600/20 blur-3xl" />
-    </div>
+        </section>
+      </main>
+      <Footer />
+    </>
   );
 }
