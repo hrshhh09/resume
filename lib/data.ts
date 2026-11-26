@@ -127,6 +127,18 @@ export const education = {
   cgpa: '8.69',
 };
 
+export const certifications = [
+  {
+    name: 'AWS Certified Solutions Architect – Associate',
+    issuer: 'Amazon Web Services',
+    code: 'SAA-C03',
+    issued: 'Nov 2026',
+    expires: 'Nov 2029',
+    // Set to your Credly badge URL once claimed to show a "Verify" link
+    verifyUrl: '',
+  },
+];
+
 export const blogPosts = [
   {
     slug: 'serving-50k-inference-requests-on-kubernetes',
