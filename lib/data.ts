@@ -23,7 +23,7 @@ export const experiences = [
   {
     role: 'Senior AI Engineer',
     company: 'Fulcrum Digital',
-    period: 'Jun 2025 - May 2026',
+    period: 'Jun 2025 - Present',
     bullets: [
       'Architected production ML serving infrastructure on AKS and Kubernetes, processing 50K+ inference requests daily with sub-200ms latency.',
       'Built full-stack GenAI apps with React, FastAPI, LangGraph agentic workflows, and RAG pipelines, reducing manual document processing by 70%.',
