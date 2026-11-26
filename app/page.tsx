@@ -1,4 +1,5 @@
 import Link from 'next/link';
+import Image from 'next/image';
 import { ArrowRight, ArrowUpRight, Download, Github, Linkedin, Mail, MapPin } from 'lucide-react';
 import { ContactForm } from '@/components/ContactForm';
 import { Footer } from '@/components/Footer';
@@ -20,8 +21,15 @@ export default function Home() {
             </span>
             Open to Senior SWE / AI Engineer roles
           </p>
-          <h1 className="mt-6 text-5xl font-semibold tracking-tight text-white sm:text-7xl">{profile.name}</h1>
-          <p className="mt-3 font-mono text-lg text-lime-400 sm:text-xl">{profile.title} · AI Platforms</p>
+          <div className="mt-6 flex flex-col-reverse gap-8 sm:flex-row sm:items-center sm:justify-between">
+            <div>
+              <h1 className="text-5xl font-semibold tracking-tight text-white sm:text-7xl">{profile.name}</h1>
+              <p className="mt-3 font-mono text-lg text-lime-400 sm:text-xl">{profile.title} · AI Platforms</p>
+            </div>
+            <div className="glass w-fit shrink-0 rounded-full p-1.5">
+              <Image src="/headshot.jpg" alt={`Portrait of ${profile.name}`} width={320} height={320} priority className="h-28 w-28 rounded-full object-cover sm:h-40 sm:w-40" />
+            </div>
+          </div>
           <p className="mt-8 max-w-2xl text-lg leading-8 text-stone-400">
             I build scalable distributed systems, microservices, and production ML platforms across AWS, Azure, and GCP —
             from <span className="text-stone-200">model-serving pipelines on Kubernetes</span> to{' '}
