@@ -1,6 +1,6 @@
 import Link from 'next/link';
 import Image from 'next/image';
-import { ArrowRight, ArrowUpRight, Award, BadgeCheck, Download, Github, Linkedin, Mail, MapPin } from 'lucide-react';
+import { ArrowRight, ArrowUpRight, BadgeCheck, Download, Github, Linkedin, Mail, MapPin } from 'lucide-react';
 import { ContactForm } from '@/components/ContactForm';
 import { Footer } from '@/components/Footer';
 import { Navbar } from '@/components/Navbar';
@@ -25,9 +25,9 @@ export default function Home() {
             <div>
               <h1 className="text-5xl font-semibold tracking-tight text-white sm:text-7xl">{profile.name}</h1>
               <p className="mt-3 font-mono text-lg text-lime-400 sm:text-xl">{profile.title} · AI Platforms</p>
-              <p className="mt-4 inline-flex items-center gap-2 rounded-full glass px-3 py-1 text-xs text-stone-300">
+              <a href={certifications[0].verifyUrl} target="_blank" rel="noreferrer" className="mt-4 inline-flex items-center gap-2 rounded-full glass px-3 py-1 text-xs text-stone-300 transition-colors hover:border-white/20 hover:text-white">
                 <BadgeCheck className="h-3.5 w-3.5 text-amber-400" />AWS Certified Solutions Architect – Associate
-              </p>
+              </a>
             </div>
             <div className="glass w-fit shrink-0 rounded-full p-1.5">
               <Image src="/headshot.jpg" alt={`Portrait of ${profile.name}`} width={320} height={320} priority className="h-28 w-28 rounded-full object-cover sm:h-40 sm:w-40" />
@@ -93,9 +93,9 @@ export default function Home() {
           {certifications.map((c) => (
             <div key={c.code} className="card mt-4 flex flex-col gap-4 p-6 sm:flex-row sm:items-center sm:justify-between">
               <div className="flex items-center gap-4">
-                <span className="flex h-12 w-12 shrink-0 items-center justify-center rounded-lg border border-amber-400/30 bg-amber-400/10">
-                  <Award className="h-6 w-6 text-amber-400" />
-                </span>
+                <a href={c.verifyUrl} target="_blank" rel="noreferrer" className="shrink-0">
+                  <Image src={c.badge} alt={`${c.name} badge`} width={128} height={128} className="h-16 w-16" />
+                </a>
                 <div>
                   <p className="label">Certification</p>
                   <p className="mt-2 font-semibold text-white">{c.name}</p>
@@ -106,7 +106,7 @@ export default function Home() {
                 <p>Issued {c.issued} · Valid to {c.expires}</p>
                 {c.verifyUrl && (
                   <a href={c.verifyUrl} target="_blank" rel="noreferrer" className="inline-flex items-center gap-1 text-lime-400 hover:text-lime-300">
-                    Verify <ArrowUpRight className="h-3.5 w-3.5" />
+                    Verify on Credly <ArrowUpRight className="h-3.5 w-3.5" />
                   </a>
                 )}
               </div>

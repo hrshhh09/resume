@@ -134,8 +134,8 @@ export const certifications = [
     code: 'SAA-C03',
     issued: 'Nov 2026',
     expires: 'Nov 2029',
-    // Set to your Credly badge URL once claimed to show a "Verify" link
-    verifyUrl: '',
+    verifyUrl: 'https://www.credly.com/badges/47320ec2-8ce8-4290-86ee-9bd4c08bd9e4',
+    badge: '/aws-saa-badge.png',
   },
 ];
 
