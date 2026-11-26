@@ -29,7 +29,7 @@ export function Navbar() {
   const isActive = (href: string) => href === '/blog' && pathname.startsWith('/blog');
 
   return (
-    <header className={`fixed inset-x-0 top-0 z-50 border-b transition-colors ${scrolled || open ? 'border-white/10 bg-[#0a0a0b]/85 backdrop-blur-md' : 'border-transparent'}`}>
+    <header className={`fixed inset-x-0 top-0 z-50 border-b transition-colors ${scrolled || open ? 'border-white/10 bg-[#0a0a0b]/20 backdrop-blur-lg shadow-glass' : 'border-transparent'}`}>
       <nav className="section-shell flex h-16 items-center justify-between">
         <Link href="/" className="font-mono text-sm text-white">
           <span className="text-lime-400">~/</span>harsh-aathavale

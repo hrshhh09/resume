@@ -35,9 +35,9 @@ export default function Home() {
             <a href={profile.linkedin} aria-label="LinkedIn" className="btn-ghost !px-3"><Linkedin className="h-4 w-4" /></a>
           </div>
 
-          <dl className="mt-16 grid grid-cols-2 gap-px overflow-hidden rounded-xl border border-white/10 bg-white/10 sm:grid-cols-4">
+          <dl className="mt-16 grid grid-cols-2 overflow-hidden rounded-xl glass sm:grid-cols-4">
             {[...metrics, { value: '2+ yrs', label: 'Shipping production systems' }].map((m) => (
-              <div key={m.label} className="bg-[#0a0a0b] p-5">
+              <div key={m.label} className="p-5">
                 <dt className="font-mono text-2xl font-semibold text-white">{m.value}</dt>
                 <dd className="mt-1 text-xs text-stone-500">{m.label}</dd>
               </div>
@@ -83,9 +83,9 @@ export default function Home() {
         {/* Skills */}
         <section id="skills" className="section-shell py-20">
           <SectionHeading index="02 — Stack" title="Tools I reach for" />
-          <div className="grid gap-px overflow-hidden rounded-xl border border-white/10 bg-white/10 sm:grid-cols-2">
+          <div className="grid gap-3 sm:grid-cols-2">
             {skillGroups.map((g) => (
-              <div key={g.label} className="bg-[#0a0a0b] p-5">
+              <div key={g.label} className="card p-5">
                 <p className="font-mono text-xs text-stone-500">{g.label}</p>
                 <div className="mt-3 flex flex-wrap gap-1.5">
                   {g.skills.map((s) => <span key={s} className="rounded-md bg-white/[0.05] px-2.5 py-1 text-sm text-stone-200">{s}</span>)}
